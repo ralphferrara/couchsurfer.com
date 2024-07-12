@@ -1,0 +1,22 @@
+CREATE TABLE `connections` (
+  `id_connection` int(11) NOT NULL AUTO_INCREMENT,
+  `fid_user` int(11) DEFAULT NULL,
+  `fid_recipient` int(11) DEFAULT NULL,
+  `fid_area` int(11) DEFAULT NULL,
+  `connection_status` varchar(4) DEFAULT NULL,
+  `connection_area` varchar(4) DEFAULT NULL,
+  `connection_type` varchar(4) DEFAULT NULL,
+  `connection_timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `connection_completed` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_connection`),
+  KEY `fid_recipient` (`fid_recipient`),
+  KEY `fid_area` (`fid_area`),
+  KEY `connection_status` (`connection_status`),
+  KEY `connection_area` (`connection_area`),
+  KEY `connection_type` (`connection_type`),
+  KEY `connection_timestamp` (`connection_timestamp`),
+  KEY `connection_timestamp_desc` (`connection_timestamp` DESC),
+  KEY `connection_completed` (`connection_completed`),
+  KEY `connection_completed_desc` (`connection_completed` DESC),
+  KEY `fid_user` (`fid_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

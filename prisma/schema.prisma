@@ -1,0 +1,61 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id_user        Int      @id @default(autoincrement())
+  fid_media      Int?
+  user_status    String   @default("PC")
+  user_level     Int      @default(0)
+  user_username  String   @unique
+  user_gender    String?  @default("M")
+  user_dob       DateTime?
+  user_city      String?
+  user_state     String?
+  user_postal    String?
+  user_country   String?
+  user_latitude  Float    @default(0.0)
+  user_longitude Float    @default(0.0)
+  user_joined    DateTime @default(now())
+  user_login     DateTime @default(now()) @updatedAt
+  user_bio       String?
+  media          Media[]  @relation("UserMedia")
+  connections    Connection[] @relation("UserConnections")
+  friends        Connection[] @relation("Friends")
+  @@map("users")
+}
+
+model Media {
+  id_media         Int      @id @default(autoincrement())
+  fid_user         Int?
+  fid_area         Int?
+  fid_folder       Int?
+  media_status     String   @default("QUE")
+  media_type       String?
+  media_area       String?
+  media_timestamp  DateTime @default(now())
+  media_meta       String?
+  media_error      String   @default("MEROK")
+  user             User?    @relation("UserMedia", fields: [fid_user], references: [id_user])
+  @@map("media")
+}
+
+model Connection {
+  id_connection       Int      @id @default(autoincrement())
+  fid_user            Int?
+  fid_recipient       Int?
+  fid_area            Int?
+  connection_status   String?
+  connection_area     String   @default("USER")
+  connection_type     String?
+  connection_timestamp DateTime @default(now())
+  connection_completed DateTime?
+  user               User?    @relation("UserConnections", fields: [fid_user], references: [id_user])
+  recipient          User?    @relation("Friends", fields: [fid_recipient], references: [id_user])
+  @@map("connections")
+}

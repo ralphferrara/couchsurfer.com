@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: nextjs
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      DB_HOST: mysqldb
+      DB_USER: root
+      DB_PASSWORD: develop99!
+      DB_NAME: couchsurfer_db
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysqldb
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: develop99!
+      MYSQL_DATABASE: couchsurfer_db
+    volumes:
+      - ./.deployment:/docker-entrypoint-initdb.d
