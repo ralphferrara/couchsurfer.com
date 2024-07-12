@@ -31,6 +31,7 @@
       //||=-=-=-=-=-=-=-=-=--=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-||*/
 
       const UserList: React.FC<UserListProps> = ({ users }) => {
+            console.log("Users data: ", users);
             return (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">{users.length > 0 ? (
                         users.map((user) => (
@@ -44,7 +45,7 @@
                                           <Link href={`/users/${user.id_user}`} className="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">View Profile</Link>
                                     </div>
                               </div>
-                        ))) : ( <p>No users found.</p> )}
+                        ))) : ( <p>Nothing here.</p> )}
                   </div>
             );
       };

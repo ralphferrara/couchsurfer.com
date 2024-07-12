@@ -1,0 +1,19 @@
+# Use the official MariaDB image as the base image
+FROM mariadb:10.5
+
+# Copy custom configuration files
+COPY ./.deployment/my.cnf /etc/mysql/my.cnf
+
+# Copy initialization scripts
+COPY ./.deployment/database.sql /docker-entrypoint-initdb.d/database.sql
+COPY ./.deployment/grant-privileges.sh /docker-entrypoint-initdb.d/grant-privileges.sh
+
+# Set environment variables
+ENV MYSQL_ROOT_PASSWORD=develop99!
+ENV MYSQL_DATABASE=couchsurfer_db
+
+# Make the initialization script executable
+RUN chmod +x /docker-entrypoint-initdb.d/grant-privileges.sh
+
+# Expose MariaDB port
+EXPOSE 3306
