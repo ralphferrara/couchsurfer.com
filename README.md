@@ -12,7 +12,9 @@ Couchsurfer Application Test
 
 # Deployment, 
 docker-compose build
+
 docker-compose up -d
+
 Visit http://localhost:3000 
 
 # Enjoy! Thanks for the opportunity
